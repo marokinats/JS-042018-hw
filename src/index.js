@@ -88,12 +88,12 @@ function returnArgumentsArray() {
    var newSum = bindFunction(sum, 2, 4);
    console.log(newSum()) выведет 6
  */
-function bindFunction(fn, ...args) {
+// function bindFunction(fn, ...args) {
   
-  return fn.bind(null, ...args);
-}
+//   return fn.bind(null, ...args);
+// }
 
-//var bindFunction = (fn, ...args) => fn.bind(null, ...args);
+var bindFunction = (fn, ...args) => fn.bind(null, ...args);
 
 export {
     returnFirstArgument,
