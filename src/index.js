@@ -29,10 +29,10 @@ var sumWithDefaults = (a, b = 100) => a + b;
  Пример:
    returnFnResult(() => 'привет') вернет 'привет'
  */
-function returnFnResult(fn) {
+// function returnFnResult(fn) {
   
-  return fn();
-}
+//   return fn();
+// }
 
 var returnFnResult = fn => fn();
 
@@ -46,13 +46,13 @@ var returnFnResult = fn => fn();
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number = 0) {
+// function returnCounter(number = 0) {
   
-  return function f() {
+//   return function f() {
     
-    return ++number;
-  }
-}
+//     return ++number;
+//   }
+// }
 
 var returnCounter = (number = 0) => () => ++number;
 
@@ -63,14 +63,18 @@ var returnCounter = (number = 0) => () => ++number;
  Пример:
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
-function returnArgumentsArray() {
-  var arr = [];
+// function returnArgumentsArray() {
+//   var arr = [];
 
-  for (var arg = 0; arg < arguments.length; arg++) {
-    arr.push(arguments[arg]);
-  }
+//   for (var arg = 0; arg < arguments.length; arg++) {
+//     arr.push(arguments[arg]);
+//   }
   
-  return arr;
+//   return arr;
+// }
+
+function returnArgumentsArray() {
+  return [...arguments];
 }
 
 /*
@@ -89,7 +93,7 @@ function bindFunction(fn, ...args) {
   return fn.bind(null, ...args);
 }
 
-var bindFunction = (fn, ...args) => fn.bind(null, ...args);
+//var bindFunction = (fn, ...args) => fn.bind(null, ...args);
 
 export {
     returnFirstArgument,
