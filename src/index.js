@@ -70,7 +70,7 @@ let upperProps = obj => Object.keys(obj).map(item => item.toUpperCase());
  Напишите аналог встроенного метода slice для работы с массивами
  Посмотрите как работает slice и повторите это поведение для массива, который будет передан в параметре array
  */
-function slice(array, from, to) {
+function slice(array, from = 0, to = array.length) {
 	var newArray = [];
 
 	if (to > array.length) {
