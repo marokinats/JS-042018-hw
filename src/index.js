@@ -109,12 +109,13 @@ function returnBadArguments(fn) {
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
 function calculator(number = 0) {
-    for (var i = 0; i < arguments.length; i++) {
-        if (!isFinite(number)) {
-            throw new Error ('number is not a number');
-        }
+    for (var i = 0; i < arguments.length; i++) { 
     }
-    var obj = {
+    if (!isFinite(number)) {
+      throw new Error ('number is not a number');
+    }
+    else {
+      var obj = {
         sum: function () {
             var resultSum = number;
 
@@ -157,6 +158,7 @@ function calculator(number = 0) {
     }
 
     return obj;
+    }
 }
 
 /* При решении задач, пострайтесь использовать отладчик */
