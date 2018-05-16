@@ -110,13 +110,14 @@ function deleteTextNodes(where) {
     if (child.nodeType === Node.TEXT_NODE) {
       where.removeChild(child);
     }
-    }
+  }
 }
 
 /*
  Задание 6:
 
- Выполнить предудыщее задание с использование рекурсии - то есть необходимо заходить внутрь каждого дочернего элемента (углубляться в дерево)
+ Выполнить предудыщее задание с использование рекурсии - то есть необходимо заходить внутрь каждого дочернего элемента
+  (углубляться в дерево)
 
  Задачу необходимо решить без использования рекурсии, то есть можно не уходить вглубь дерева.
  Так же будьте внимательны при удалении узлов, т.к. можно получить неожиданное поведение при переборе узлов
@@ -170,36 +171,41 @@ function collectDOMStat(root) {
 
   let children = root.childNodes;
 
-  for (var i = 0; i < children.length; i++) {
-    if(children[i].nodeType === 3) {
-      obj.texts++;
-    }
-    if(children[i].nodeType === 1) {
-      let tag = children[i].tagName;
+  let collectStat = children => {
+    for (let i = 0; i < children.length; i++) {
+      if(children[i].nodeType === 3) {
 
-      if (tag in obj.tags) {
-        obj.tags[tag]++;
-      } else {
-        obj.tags[tag] = 1;
+        obj.texts++;
       }
+      if(children[i].nodeType === 1) {
+        
+        let tag = children[i].tagName;
+        
+        if (tag in obj.tags) {
+          obj.tags[tag]++;
+        } else {
+          obj.tags[tag] = 1;
+        }
 
-      let elemClassList = children[i].classList;
-
-      if (elemClassList.length > 0) {
-        for (var i = 0; i < elemClassList.length; i++) {
-          if (elemClassList[i] in obj.classes) {
-            obj.classes[elemClassList[i]]++;
-          } else {
-            obj.classes[elemClassList[i]] = 1;
+        let elemClassList = children[i].classList;
+        
+        if (elemClassList.length > 0) {
+          for (let k = 0; k < elemClassList.length; k++) {
+            if (elemClassList[k] in obj.classes) {
+              obj.classes[elemClassList[k]]++;
+            } else {
+              obj.classes[elemClassList[k]] = 1;
+            }
           }
         }
       }
-    collectDOMStat(children[i]);
+      collectStat(children[i].childNodes);
     }
   }
-
+  collectStat(root.children);
   return obj;
 }
+
 
 /*
  Задание 8 *:
@@ -234,6 +240,36 @@ function collectDOMStat(root) {
    }
  */
 function observeChildNodes(where, fn) {
+
+  let observer = new MutationObserver(function(mutations) {
+    
+    mutations.forEach(function(mutation) {
+      
+      let addedNodes = mutation.addedNodes;
+
+      let removedNodes = mutation.removedNodes;
+
+      if (addedNodes.length > 0) {
+        fn({
+          type: 'insert',
+          nodes: Array.prototype.slice.call(addedNodes)
+        });
+      }
+
+      if (removedNodes.length > 0) {
+        fn({
+          type: 'remove',
+          nodes: Array.prototype.slice.call(removedNodes)
+        });
+      }
+    });
+  });
+
+  observer.observe(where, {
+    childList: true,
+    characterData: true,
+    subtree: true
+    });
 }
 
 export {
