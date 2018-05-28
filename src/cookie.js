@@ -78,7 +78,7 @@ addButton.addEventListener('click', () => {
     addNameInput.value = '';
     addValueInput.value = '';
 
-    showTable();
+    showTable(getCookies());
 });
 
 // Удаление
