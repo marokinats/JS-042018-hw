@@ -69,7 +69,7 @@ function isMatching(full, chunk) {
 }
 
 // при первой загрузке
-showTable(cookies);
+showTable(getCookies());
 
 // Добавление куки
 addButton.addEventListener('click', () => {
@@ -113,13 +113,11 @@ filterNameInput.addEventListener('keyup', function () {
   let subStr = filterNameInput.value;
   
   for (let name in allCookies) {
-       if (isMatching(allCookies[name], subStr) || isMatching(name, subStr)) {
+    if (isMatching(allCookies[name], subStr) || isMatching(name, subStr)) {
         
-        filteredCookies[name] = allCookies[name];
-        
-       }
+      filteredCookies[name] = allCookies[name];
+    }
   }
-
   showTable(filteredCookies);
 });
 
@@ -128,8 +126,6 @@ filterNameInput.addEventListener('keyup', function () {
 // функция рендеринга
 function showTable(cookies) {
   listTable.innerHTML = '';
-  
-  //const cookies = getCookies();
     
   for (let key in cookies) {
     listTable.innerHTML += `<tr><td>${key}</td><td>${cookies[key]}</td><td><button>Удалить</button></td></tr>`;
