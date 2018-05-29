@@ -77,8 +77,24 @@ addButton.addEventListener('click', () => {
     document.cookie = `${addNameInput.value} = ${addValueInput.value}`;
     addNameInput.value = '';
     addValueInput.value = '';
+    if(filterNameInput.value) {
 
-    showTable(getCookies());
+      const allCookies = getCookies();
+  
+      const filteredCookies = {};
+  
+      let subStr = filterNameInput.value;
+  
+      for (let name in allCookies) {
+        if (isMatching(allCookies[name], subStr) || isMatching(name, subStr)) {
+        
+        filteredCookies[name] = allCookies[name];
+        }
+      }
+      showTable(filteredCookies);
+    } else {
+      showTable(getCookies());
+    }
 });
 
 // Удаление
@@ -99,9 +115,7 @@ listTable.addEventListener('click', function (e) {
   document.cookie = `${currentNameText}=${currentValueText};expires=${date.toUTCString()}`;
   
   target.remove();
-  
 });
-
 
 // Поиск в объекте
 filterNameInput.addEventListener('keyup', function () {
@@ -120,8 +134,6 @@ filterNameInput.addEventListener('keyup', function () {
   }
   showTable(filteredCookies);
 });
-
-
 
 // функция рендеринга
 function showTable(cookies) {
