@@ -79,19 +79,7 @@ addButton.addEventListener('click', () => {
     addValueInput.value = '';
     if(filterNameInput.value) {
 
-      const allCookies = getCookies();
-  
-      const filteredCookies = {};
-  
-      let subStr = filterNameInput.value;
-  
-      for (let name in allCookies) {
-        if (isMatching(allCookies[name], subStr) || isMatching(name, subStr)) {
-        
-        filteredCookies[name] = allCookies[name];
-        }
-      }
-      showTable(filteredCookies);
+      getFilteredCookies();
     } else {
       showTable(getCookies());
     }
@@ -117,9 +105,7 @@ listTable.addEventListener('click', function (e) {
   target.remove();
 });
 
-// Поиск в объекте
-filterNameInput.addEventListener('keyup', function () {
-  
+function getFilteredCookies() {
   const allCookies = getCookies();
   
   const filteredCookies = {};
@@ -133,6 +119,12 @@ filterNameInput.addEventListener('keyup', function () {
     }
   }
   showTable(filteredCookies);
+};
+
+// Поиск в объекте
+filterNameInput.addEventListener('keyup', function () {
+  getFilteredCookies()
+  
 });
 
 // функция рендеринга
